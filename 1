@@ -1,0 +1,34 @@
+-- ex --
+select nome_funcionario from funcionario
+where codfuncionario = (select codfuncionario from funcionario
+where nome_funcionario like "%Mendes");
+
+-- ex1 --
+select nome_funcionario from funcionario
+where sigla_depto in(select sigla_depto from departamento
+where nome_depto like "%cursos%");
+
+-- ex2 --
+select nome_funcionario from funcionario
+where sigla_depto in(select sigla_depto from departamento
+where sigla_depto in ("HR", "MKT") );
+
+-- ex3 --
+select nome_depto, (select sum(salario) as Total_Salario from funcionario)
+from departamento;
+
+-- ex4 --
+select nome_funcionario, (select AVG(salario) as media_salario from funcionario ) 
+from funcionario where sigla_depto = "IT";
+
+-- ex5 --
+select nome_depto, (select COUNT(qtdfuncionariosdepto) as funcionarios_depto from departamento)
+from departamento;
+
+-- ex6 --
+select nome_funcionario, (select AVG(salario) as media_salarial from funcionario)
+from funcionario where sigla_depto = "HR";
+
+-- ex7 --
+select group_concat(nome_depto, nome_funcionario)
+from departamento, funcionario;
